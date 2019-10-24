@@ -43,7 +43,17 @@ app.get("/", function(req, res) {
     }); 
 });
 
-app.get("/scrape", function(req, res) {
+app.get("/api/clear", function(req, res) {
+    db.Article.deleteMany({}).then(function(deletedCount) {
+        console.log(deletedCount);
+        res.redirect("/")
+    })
+    .catch(function(err) {
+        console.log(err);
+    }); 
+});
+
+app.get("/api/scrape", function(req, res) {
     axios.get("https://www.bbc.com/news/world").then(function(response) {
         
         var $ = cheerio.load(response.data);
