@@ -96,7 +96,18 @@ app.put("/api/articles/:id", function(req, res) {
     db.Article.findOneAndUpdate({ _id: req.params.id }, { $set: { saved: req.body.saved }})
     .then(function(dbArticle) {
         console.log(dbArticle);
-        res.end()    ;
+        res.end();
+    })
+    .catch(function(err) {
+        // If an error occurs, send it back to the client
+        console.log(err);
+    });
+});
+
+app.delete("/api/articles/:id", function(req, res) {
+    db.Article.findOneAndDelete({ _id: req.params.id }).then(function(dbArticle) {
+        console.log(dbArticle);
+        res.end();
     })
     .catch(function(err) {
         // If an error occurs, send it back to the client
