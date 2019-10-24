@@ -11,6 +11,10 @@ var ArticleSchema = new Schema({
     },
     summary: String,
     url: String,
+    saved: {
+        type: Boolean,
+        default: false
+    },
     comments: [
         {
             type: Schema.Types.ObjectId,
