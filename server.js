@@ -31,6 +31,7 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true 
 mongoose.set('useCreateIndex', true);
 
 // ROUTES
+
 app.get("/", function(req, res) {
     db.Article.find({}).then(function(dbArticles) {
         var allArticles = {
@@ -50,6 +51,18 @@ app.get("/api/clear", function(req, res) {
     })
     .catch(function(err) {
         console.log(err);
+    }); 
+});
+
+app.get("/saved", function(req, res) {
+    db.Article.find({ saved: true }).then(function(dbArticles) {
+        var savedArticles = {
+            articles: dbArticles
+        }
+        res.render("saved", savedArticles);
+    })
+    .catch(function(err) {
+        res.json(err);
     }); 
 });
 
@@ -76,6 +89,18 @@ app.get("/api/scrape", function(req, res) {
         });
        
         res.end();
+    });
+});
+
+app.put("/api/articles/:id", function(req, res) {
+    db.Article.findOneAndUpdate({ _id: req.params.id }, { $set: { saved: req.body.saved }})
+    .then(function(dbArticle) {
+        console.log(dbArticle);
+        res.end()    ;
+    })
+    .catch(function(err) {
+        // If an error occurs, send it back to the client
+        console.log(err);
     });
 });
 
