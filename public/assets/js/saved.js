@@ -32,6 +32,7 @@ $(document).ready(function() {
         })
         .then(function(data) {
             console.log(data)
+            $("#commentsDiv").empty();
             $("#articleId").text(data._id);
             $(".postComment").attr("data-id", data._id);
 
@@ -40,8 +41,9 @@ $(document).ready(function() {
                     $("#commentsDiv").append("<p>" + data.comments[i].body + "</p>")
                 }
             }
-            
-            // $("#commentsDiv").append("<p class='text-center'> No comments for this article yet.</p>")
+            else {
+                $("#commentsDiv").append("<p class='text-center'> No comments for this article yet.</p>")
+            }
             $("#commentsModal").modal("show");
         });
     });
