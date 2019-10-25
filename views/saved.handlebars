@@ -31,5 +31,31 @@
     {{/each}}
 </div>
 
-<!-- Client-side JavaScript -->
+{{!-- Comments Modal --}}
+<div class="modal fade" id="commentsModal" tabindex="-1" role="dialog" aria-labelledby="commentsModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 id="commentTitle" class="modal-title w-100 font-weight-bold">Comments For Article: <span id="articleId"></span> </h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+          <div id="commentsDiv">Hello</div>
+        <div class="md-form">
+          <textarea type="text" id="form8" class="md-textarea form-control" rows="4"></textarea>
+          <label data-error="wrong" data-success="right" for="form8">New Comment</label>
+        </div>
+
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button class="btn btn-unique postComment">Post Comment</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{!-- Client-side JavaScript --}}
 <script src="assets/js/saved.js"></script>

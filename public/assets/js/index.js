@@ -32,6 +32,6 @@ $(document).ready(function() {
         .then(function(data) {
             location.reload();
             console.log(data);
-        })
-    })
+        });
+    });
 });

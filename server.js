@@ -78,14 +78,14 @@ app.get("/api/scrape", function(req, res) {
             result.summary = $(this).find("p.qa-sty-summary").text();
             result.url = $(this).find("a.qa-heading-link").attr("href");
             
-        if(result.summary !== "") {
-            db.Article.create(result).then(function(dbArticle) {
-                console.log(dbArticle);
-            })
-            .catch(function(err) {
-                console.log(err);
-            });
-        }
+            if(result.summary !== "") {
+                db.Article.create(result).then(function(dbArticle) {
+                    console.log(dbArticle);
+                })
+                .catch(function(err) {
+                    console.log(err);
+                });
+            }
         });
        
         res.end();
@@ -111,6 +111,17 @@ app.delete("/api/articles/:id", function(req, res) {
     })
     .catch(function(err) {
         // If an error occurs, send it back to the client
+        console.log(err);
+    });
+});
+
+app.get("/api/articles/:id", function(req, res) {
+    db.Article.findOne({ _id: req.params.id })
+        .populate("comments")
+        .then(function(dbArticle) {
+            res.json(dbArticle)
+    })
+    .catch(function(err) {
         console.log(err);
     });
 });
