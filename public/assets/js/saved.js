@@ -33,21 +33,34 @@ $(document).ready(function() {
         .then(function(data) {
             console.log(data)
             $("#articleId").text(data._id);
-            $("#commentTitle").attr("data-id", data._id);
+            $(".postComment").attr("data-id", data._id);
 
-            if(data.comments) {
+            if(data.comments.length !== 0) {
                 for(var i = 0; i < data.comments.length; i ++) {
                     $("#commentsDiv").append("<p>" + data.comments[i].body + "</p>")
                 }
             }
-    
-            $("#commentsDiv").html("<p class='text-center'> No comments for this article yet.</p>")
+            
+            // $("#commentsDiv").append("<p class='text-center'> No comments for this article yet.</p>")
             $("#commentsModal").modal("show");
         });
     });
 
     // Click listener for Post Comment button
-    $(document).on("click", ".btn.postComment", function() {
-        
-    })
+    $(document).on("click", ".btn.postComment", function(event) {
+        event.preventDefault();
+
+        var articleId = $(this).attr("data-id");
+
+        $.ajax({
+            method: "POST",
+            url: "/api/articles/" + articleId,
+            data: {
+                body: $("#commentBody").val().trim()
+            }
+        }).then(function(data) {
+            console.log(data);
+            location.reload();
+        });
+    });
 });

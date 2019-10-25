@@ -126,6 +126,19 @@ app.get("/api/articles/:id", function(req, res) {
     });
 });
 
+app.post("/api/articles/:id", function(req, res) {
+    db.Comment.create(req.body).then(function(dbComment) {
+        return db.Article.findOneAndUpdate({ _id: req.params.id }, { $push: { comments: dbComment._id } }, { new: true });
+    })
+    .then(function(dbArticle) {
+        console.log(dbArticle);
+        res.end();
+    })
+    .catch(function(err) {
+        console.log(err);
+    });
+});
+
 // Start express server
 app.listen(PORT, function() {
     console.log(`Listening on PORT ${PORT}...`)
