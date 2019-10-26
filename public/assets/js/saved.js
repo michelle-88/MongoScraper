@@ -38,10 +38,10 @@ $(document).ready(function() {
 
             if(data.comments.length !== 0) {
                 for(var i = 0; i < data.comments.length; i ++) {
-                    $("#commentsDiv").append("<div>" + data.comments[i].body + 
-                    "<button type='button' class='btn btn-sm btn-danger px-3 delete-comment' data-id='" + 
+                    $("#commentsDiv").append("<div><i class='far fa-comment fa-lg'></i> " + data.comments[i].body + 
+                    "<button type='button' class='btn btn-sm px-3 delete-comment' data-id='" + 
                     data.comments[i]._id + 
-                    "'>X</button></div>");
+                    "'><i class='fas fa-times'></i></button></div>");
                 }
             }
             else {

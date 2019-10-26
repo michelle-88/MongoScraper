@@ -1,0 +1,53 @@
+.jumbotron {
+    position: relative;
+    background-image: url("../images/roman-kraft-_Zua2hyvTBk-unsplash.jpg");
+    background-size: cover;
+    background-position: center;
+    min-height: 500px !important;
+}
+
+.jumbotron > .overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgb(119,124,133, 0.7);
+    z-index: 1;
+}
+  
+.jumbotron > .inner {
+    position: relative;
+    z-index: 2;
+}
+
+.navbar {
+    background-color: #880d4f;
+}
+
+.card-header {
+    background-color: #880d4fd6;
+}
+
+.delete-comment {
+    background-color: #CC0000;
+    color: white;
+}
+
+a {
+    color: white;
+}
+
+a:hover {
+    color: black;
+}
+
+#title-font {
+    font-family: 'Raleway', sans-serif;
+    font-size: 4.5rem;
+}
+
+#lead-font {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.5rem;
+}
