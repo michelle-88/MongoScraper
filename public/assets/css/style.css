@@ -34,12 +34,21 @@
     color: white;
 }
 
+.error {
+    background-color: #880d4fd6;
+}
+
 a {
     color: white;
 }
 
 a:hover {
     color: black;
+}
+
+#home {
+    color: #0000EE;
+    text-decoration: underline;
 }
 
 #title-font {

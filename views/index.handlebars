@@ -44,6 +44,11 @@
         {{#unless saved}}
             {{> articles/article-card}}
         {{/unless}}
+        {{else}}
+        <div class="text-center white-text py-3 error">
+            <h3>No new articles were found...</h3>
+            <h5>Click on the <em>Scrape New Articles</em> button above to get the latest headlines!</h5>
+        </div>
     {{/each}}
 </div>
 

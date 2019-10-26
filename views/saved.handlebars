@@ -43,7 +43,13 @@
         {{#if saved}}
             {{> articles/saved-card}}
         {{/if}}
+        {{else}}
+        <div class="text-center white-text py-3 error">
+            <h3>You haven't saved any articles yet...</h3>
+            <h5>Visit the <a id="home" href="/">home page</a> to peruse the lastest news!</h5>
+        </div>
     {{/each}}
+
 </div>
 
 {{!-- Comments Modal --}}
