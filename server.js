@@ -32,6 +32,7 @@ mongoose.set('useCreateIndex', true);
 
 // ROUTES
 
+// GET route for home page
 app.get("/", function(req, res) {
     db.Article.find({}).then(function(dbArticles) {
         var allArticles = {
@@ -44,6 +45,7 @@ app.get("/", function(req, res) {
     }); 
 });
 
+// GET route that will delete all articles in db
 app.get("/api/clear", function(req, res) {
     db.Article.deleteMany({}).then(function(deletedCount) {
         console.log(deletedCount);
@@ -54,6 +56,7 @@ app.get("/api/clear", function(req, res) {
     }); 
 });
 
+// GET route to display all saved articles
 app.get("/saved", function(req, res) {
     db.Article.find({ saved: true }).then(function(dbArticles) {
         var savedArticles = {
@@ -66,6 +69,7 @@ app.get("/saved", function(req, res) {
     }); 
 });
 
+// GET route to scrape BBC World News and add articles to db
 app.get("/api/scrape", function(req, res) {
     axios.get("https://www.bbc.com/news/world").then(function(response) {
         
@@ -92,6 +96,7 @@ app.get("/api/scrape", function(req, res) {
     });
 });
 
+// PUT route to save an article
 app.put("/api/articles/:id", function(req, res) {
     db.Article.findOneAndUpdate({ _id: req.params.id }, { $set: { saved: req.body.saved }})
     .then(function(dbArticle) {
@@ -99,22 +104,22 @@ app.put("/api/articles/:id", function(req, res) {
         res.end();
     })
     .catch(function(err) {
-        // If an error occurs, send it back to the client
         console.log(err);
     });
 });
 
+// DELETE route to delete a saved article
 app.delete("/api/articles/:id", function(req, res) {
     db.Article.findOneAndDelete({ _id: req.params.id }).then(function(dbArticle) {
         console.log(dbArticle);
         res.end();
     })
     .catch(function(err) {
-        // If an error occurs, send it back to the client
         console.log(err);
     });
 });
 
+// GET route to find specified article and populate it with its comments
 app.get("/api/articles/:id", function(req, res) {
     db.Article.findOne({ _id: req.params.id })
         .populate("comments")
@@ -126,12 +131,24 @@ app.get("/api/articles/:id", function(req, res) {
     });
 });
 
+// POST route to add comment to db and push its _id into Article comments array
 app.post("/api/articles/:id", function(req, res) {
     db.Comment.create(req.body).then(function(dbComment) {
         return db.Article.findOneAndUpdate({ _id: req.params.id }, { $push: { comments: dbComment._id } }, { new: true });
     })
     .then(function(dbArticle) {
         console.log(dbArticle);
+        res.end();
+    })
+    .catch(function(err) {
+        console.log(err);
+    });
+});
+
+// DELETE route to delete a comment
+app.delete("/api/comments/:id", function(req, res) {
+    db.Comment.findOneAndDelete({ _id: req.params.id }).then(function(dbComment) {
+        console.log(dbComment);
         res.end();
     })
     .catch(function(err) {

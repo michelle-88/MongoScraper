@@ -33,12 +33,15 @@ $(document).ready(function() {
         .then(function(data) {
             console.log(data)
             $("#commentsDiv").empty();
-            $("#articleId").text(data._id);
+            $("#articleId").text(data.title);
             $(".postComment").attr("data-id", data._id);
 
             if(data.comments.length !== 0) {
                 for(var i = 0; i < data.comments.length; i ++) {
-                    $("#commentsDiv").append("<p>" + data.comments[i].body + "</p>")
+                    $("#commentsDiv").append("<div>" + data.comments[i].body + 
+                    "<button type='button' class='btn btn-sm btn-danger px-3 delete-comment' data-id='" + 
+                    data.comments[i]._id + 
+                    "'>X</button></div>");
                 }
             }
             else {
@@ -63,6 +66,20 @@ $(document).ready(function() {
         }).then(function(data) {
             console.log(data);
             location.reload();
+        });
+    });
+
+    // Click listener for comment delete button
+    $(document).on("click", ".btn.delete-comment", function() {
+        var commentId = $(this).attr("data-id");
+
+        $(this).parent("div").remove();
+       
+        $.ajax({
+            method: "DELETE",
+            url: "/api/comments/" + commentId
+        }).then(function(data) {
+            console.log(data);
         });
     });
 });
