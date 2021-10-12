@@ -15,7 +15,6 @@ A full-stack web scraper that supplies the latest world news from BBC. Users can
 - CSS
 - MD Bootstrap framework
 
-Visit the deployed app on the Heroku platform: [BBC News Scraper](https://tranquil-shelf-85077.herokuapp.com/)
 
 ![Screenshot 1](./public/assets/images/NewsScraper.png)
 ---
